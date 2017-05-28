@@ -14,16 +14,16 @@ new Vue({
   components: { App },
 });
 
-const isProductionMode = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
-if ('serviceWorker' in navigator && isProductionMode) {
+if ('serviceWorker' in navigator && isProduction) {
   navigator.serviceWorker.register('service-worker.js').then(() => {
     console.log('Service worker has been successfully registered');
   }).catch((e) => {
     console.error('Error during service worker registration:', e);
   });
 } else {
-  const reason = isProductionMode
+  const reason = isProduction
     ? 'Service worker is not supported'
     : 'Running in dev mode. Service worker isn\'t registered';
   console.log(reason);
