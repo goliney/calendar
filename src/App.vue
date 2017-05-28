@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <controls></controls>
-    <router-view></router-view>
+    <router-view class="main-view"></router-view>
   </div>
 </template>
 
@@ -32,6 +32,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  min-width: 1024px;
+  min-height: 640px;
 }
 
 * {
@@ -42,5 +44,10 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.main-view {
+  flex: 1;
+  padding: 32px;
 }
 </style>
