@@ -6,7 +6,15 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import VueMaterial from 'vue-material';
+import 'vue-material/dist/vue-material.css';
+import 'material-design-icons/iconfont/material-icons.css';
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
+
 import Controls from './components/Controls';
+
+Vue.use(VueMaterial);
 
 export default {
   name: 'app',
@@ -34,7 +42,5 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
 }
 </style>

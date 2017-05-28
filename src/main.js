@@ -14,6 +14,9 @@ new Vue({
   components: { App },
 });
 
+
+// Service worker stuff
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 if ('serviceWorker' in navigator && isProduction) {

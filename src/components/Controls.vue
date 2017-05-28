@@ -1,12 +1,20 @@
 <template>
   <menu>
-    I am menu
+    <md-button>Default</md-button>
+    <md-button class="md-primary">Primary</md-button>
+    <md-button class="md-accent">Accent</md-button>
+    <md-button class="md-warn">Warn</md-button>
+    <md-button class="md-primary" disabled>Disabled</md-button>
+    <md-button class="md-dense">Dense</md-button>
   </menu>
 </template>
 
 <script>
 export default {
   name: 'controls',
+  components: [
+    'md-button',
+  ],
   data() {
     return {
     };
