@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Year from '../components/Year';
-import Month from '../components/Month';
-import Week from '../components/Week';
-import Day from '../components/Day';
+import YearView from '../components/YearView';
+import MonthView from '../components/MonthView';
+import WeekView from '../components/WeekView';
+import DayView from '../components/DayView';
 
 Vue.use(Router);
 
@@ -12,23 +12,23 @@ export default new Router({
     {
       path: '/year',
       name: 'year',
-      component: Year,
+      component: YearView,
     },
     {
       path: '/month',
       name: 'month',
-      component: Month,
+      component: MonthView,
       alias: '/',
     },
     {
       path: '/week',
       name: 'week',
-      component: Week,
+      component: WeekView,
     },
     {
       path: '/day',
       name: 'day',
-      component: Day,
+      component: DayView,
       alias: '/',
     },
   ],

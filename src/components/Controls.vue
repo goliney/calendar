@@ -29,10 +29,10 @@
 
     <!-- year / month / week / day -->
     <md-button-toggle md-single>
-      <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('year') }" @click.native="changeMode('year')">year</md-button>
-      <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('month') }" @click.native="changeMode('month')">month</md-button>
-      <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('week') }" @click.native="changeMode('week')">week</md-button>
       <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('day') }" @click.native="changeMode('day')">day</md-button>
+      <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('week') }" @click.native="changeMode('week')">week</md-button>
+      <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('month') }" @click.native="changeMode('month')">month</md-button>
+      <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('year') }" @click.native="changeMode('year')">year</md-button>
     </md-button-toggle>
   </md-toolbar>
 </template>

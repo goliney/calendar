@@ -48,6 +48,18 @@ body {
 
 .main-view {
   flex: 1;
-  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 32px 2px;
+
+  .static {
+    margin-right: $scrollbar_with_margin;
+  }
+
+  .dynamic {
+    flex: 1;
+    overflow: auto;
+    padding-right: 8px;
+  }
 }
 </style>

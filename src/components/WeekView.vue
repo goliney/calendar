@@ -1,12 +1,12 @@
 <template>
   <div>
-    Year view
+    Week view
   </div>
 </template>
 
 <script>
 export default {
-  name: 'month',
+  name: 'weekView',
   data() {
     return {
     };

@@ -1,0 +1,10 @@
+$separator_color: #ddd;
+$slot_bg: #eaeaea;
+$slot_height: 40px;
+$scrollbar_with_margin: 18px;
+
+.top-border {
+  height: 1px;
+  margin-right: $scrollbar_with_margin;
+  background-color: $separator_color;
+}

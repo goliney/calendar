@@ -1,12 +1,12 @@
 <template>
-  <div class="Day">
-    Day view
+  <div>
+    Year view
   </div>
 </template>
 
 <script>
 export default {
-  name: 'month',
+  name: 'yearView',
   data() {
     return {
     };

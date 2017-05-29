@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'month',
+  name: 'monthView',
   data() {
     return {
     };
