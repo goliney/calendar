@@ -1,5 +1,5 @@
 <template>
-  <div class="Day">
+  <div>
     <section class="static">
       <span class="title">Monday, 5/29</span>
       <day id="day"></day>
@@ -36,7 +36,8 @@ export default {
 @import '~assets/scss/global.scss';
 
 .static {
-  margin-left: 60px;
+  margin-left: 59px;
+  margin-bottom: 5px;
 
   .title {
     display: block;
@@ -45,9 +46,8 @@ export default {
   }
 
   #day {
-    margin-bottom: 5px;
-    border: 1px solid $separator_color;
     padding: 1px 0 0 2px;
+    border: 1px solid $separator_color;
   }
 }
 

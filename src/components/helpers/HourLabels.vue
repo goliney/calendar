@@ -25,6 +25,7 @@ export default {
 section {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   width: 60px;
 }
 
@@ -32,7 +33,6 @@ section {
   flex-basis: $slot_height;
   flex-shrink: 0;
   border: 1px solid $separator_color;
-  border-right: none;
   border-bottom: none;
   font-size: 0.8em;
   text-align: right;

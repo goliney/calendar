@@ -53,6 +53,9 @@ body {
   padding: 16px 32px 2px;
 
   .static {
+    display: flex;
+    flex-direction: column;
+    max-height: 50%;
     margin-right: $scrollbar_with_margin;
   }
 

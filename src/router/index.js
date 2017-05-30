@@ -10,26 +10,38 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/year',
+      path: '/:year',
       name: 'year',
       component: YearView,
     },
     {
-      path: '/month',
+      path: '/:year/:month',
       name: 'month',
       component: MonthView,
-      alias: '/',
     },
     {
-      path: '/week',
+      path: '/:year/:month/:start-:end',
       name: 'week',
       component: WeekView,
     },
     {
-      path: '/day',
+      path: '/:year/:month/:day',
       name: 'day',
       component: DayView,
-      alias: '/',
+    },
+    {
+      path: '',
+      redirect() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const day = today.getDate();
+        return { name: 'day', params: { year, month, day } };
+      },
+    },
+    {
+      path: '*',
+      redirect: '/',
     },
   ],
 });

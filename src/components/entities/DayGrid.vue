@@ -29,6 +29,7 @@ export default {
   height: $slot_height;
   border: 1px solid $separator_color;
   border-bottom: none;
+  border-left: none;
 
   &.active {
     background-color: $slot_bg;

@@ -20,5 +20,6 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: $slot_height / 2;
+  overflow: hidden;
 }
 </style>
