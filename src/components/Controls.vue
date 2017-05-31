@@ -8,7 +8,7 @@
     <!-- navigation -->
     <nav class="prev-next">
       <!-- today -->
-      <md-button class="md-raised md-dense today" @click.native="prev()">
+      <md-button class="md-raised md-dense today" @click.native="today()">
         Today
         <md-tooltip md-direction="bottom">Go to today's date</md-tooltip>
       </md-button>
@@ -25,7 +25,7 @@
     </nav>
 
     <!-- current view title -->
-    <h3 class="md-subheading current-view-title">May 2017</h3>
+    <h3 class="md-subheading current-view-title">{{title}}</h3>
 
     <!-- year / month / week / day -->
     <md-button-toggle md-single>
@@ -38,24 +38,135 @@
 </template>
 
 <script>
+import * as utils from '@/utils';
+
 export default {
   name: 'controls',
   data() {
     return {
     };
   },
+  computed: {
+    title() {
+      let result = '';
+      const { year, month, week, day } = this.$route.params;
+      switch (this.$route.name) {
+        case 'day': {
+          const weekDay = this.currentDate.getDay();
+          result = `${utils.getWeekDayName(weekDay)}, ${utils.getMonthName(month)} ${day} ${year}`;
+          break;
+        }
+        case 'week': {
+          const [startDate,,,,,, endDate] = utils.getWeeksOfMonth(year, month)[week];
+          const start = utils.parseDate(startDate);
+          const end = utils.parseDate(endDate);
+          result = `${start.monthName} ${start.day} ${start.year} – ${end.monthName} ${end.day} ${end.year}`;
+          break;
+        }
+        case 'month': {
+          result = `${utils.getMonthName(month)} ${year}`;
+          break;
+        }
+        case 'year': {
+          break;
+        }
+        default:
+          break;
+      }
+      return result;
+    },
+    currentDate() {
+      // I know we should pass params as props, but this is not a component inside router-view
+      const { year, month, day } = this.$route.params;
+      return new Date(year, month, day);
+    },
+  },
   methods: {
+    today() {
+      const today = new Date();
+      const { year, month, day, week } = utils.parseDate(today);
+      this.$router.push({ name: this.$route.name, params: { year, month, day, week } });
+    },
     prev() {
-      console.log('aaaa');
+      switch (this.$route.name) {
+        case 'day': {
+          const yesterday = utils.getPrevDay(this.currentDate);
+          const { year, month, day } = utils.parseDate(yesterday);
+          this.$router.push({ name: 'day', params: { year, month, day } });
+          break;
+        }
+        case 'week': {
+          const weekStart = utils.getWeeksOfMonth(
+            this.$route.params.year,
+            this.$route.params.month,
+          )[this.$route.params.week][0];
+          const { year, month, week } = utils.parseDate(utils.getPrevDay(weekStart));
+          this.$router.push({ name: 'week', params: { year, month, week } });
+          break;
+        }
+        case 'month': {
+          const lastDayOfPrevMonth = new Date(this.$route.params.year, this.$route.params.month, 0);
+          const year = lastDayOfPrevMonth.getFullYear();
+          const month = lastDayOfPrevMonth.getMonth();
+          this.$router.push({ name: 'month', params: { year, month } });
+          break;
+        }
+        default:
+          break;
+      }
     },
     next() {
-      console.log('bbbb');
+      switch (this.$route.name) {
+        case 'day': {
+          const yesterday = utils.getNextDay(this.currentDate);
+          const { year, month, day } = utils.parseDate(yesterday);
+          this.$router.push({ name: 'day', params: { year, month, day } });
+          break;
+        }
+        case 'week': {
+          const weekStart = utils.getWeeksOfMonth(
+            this.$route.params.year,
+            this.$route.params.month,
+          )[this.$route.params.week][6];
+          const { year, month, week } = utils.parseDate(utils.getNextDay(weekStart));
+          this.$router.push({ name: 'week', params: { year, month, week } });
+          break;
+        }
+        case 'month': {
+          const currentYear = this.$route.params.year;
+          const firstDayOfNextMonth = new Date(currentYear, this.$route.params.month + 1, 1);
+          const year = firstDayOfNextMonth.getFullYear();
+          const month = firstDayOfNextMonth.getMonth();
+          this.$router.push({ name: 'month', params: { year, month } });
+          break;
+        }
+        default:
+          break;
+      }
     },
     isModeActive(mode) {
       return this.$route.name === mode;
     },
     changeMode(mode) {
-      this.$router.push({ name: mode });
+      const params = Object.assign({}, this.$route.params);
+      switch (this.$route.name) {
+        case 'day': {
+          params.week = utils.getWeekNumber(this.currentDate);
+          break;
+        }
+        case 'week': {
+          break;
+        }
+        case 'month': {
+          break;
+        }
+        case 'year': {
+          break;
+        }
+        default:
+          break;
+      }
+      this.$router.push({ name: mode, params });
     },
   },
 };
