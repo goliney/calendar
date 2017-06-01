@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { parseDate } from '../utils';
+import { parseDateSimple, getWeeksOfMonth } from '../utils';
 import YearView from '../components/YearView';
 import MonthView from '../components/MonthView';
 import WeekView from '../components/WeekView';
@@ -8,28 +8,28 @@ import DayView from '../components/DayView';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
-      path: '/:year',
+      path: '/:year(\\d+)',
       name: 'year',
       component: YearView,
       props: true,
     },
     {
-      path: '/:year/:month',
+      path: '/:year(\\d{4})/:month(\\d{1,2})',
       name: 'month',
       component: MonthView,
       props: true,
     },
     {
-      path: '/:year/:month/week/:week',
+      path: '/:year(\\d{4})/:month(\\d{1,2})/week/:week(\\d{1,2})',
       name: 'week',
       component: WeekView,
       props: true,
     },
     {
-      path: '/:year/:month/:day',
+      path: '/:year(\\d{4})/:month(\\d{1,2})/:day(\\d{1,2})',
       name: 'day',
       component: DayView,
       props: true,
@@ -38,7 +38,7 @@ export default new Router({
       path: '',
       redirect() {
         const today = new Date();
-        const { year, month, day } = parseDate(today);
+        const { year, month, day } = parseDateSimple(today);
         return { name: 'day', params: { year, month, day } };
       },
     },
@@ -48,3 +48,27 @@ export default new Router({
     },
   ],
 });
+
+// Navigation Guard
+router.beforeEach((to, from, next) => {
+  const toYear = parseInt(to.params.year, 10);
+  const toMonth = parseInt(to.params.month, 10);
+  const toWeek = parseInt(to.params.week, 10);
+  const toDay = parseInt(to.params.day, 10) || 1;
+  let invalidParams = false;
+  if (to.name === 'week') {
+    const weeks = getWeeksOfMonth(toYear, toMonth);
+    invalidParams = weeks.length - 1 < toWeek;
+  } else {
+    const target = new Date(toYear, toMonth, toDay);
+    const { year, month, day } = parseDateSimple(target);
+    invalidParams = year !== toYear || month !== toMonth || day !== toDay;
+  }
+  if (invalidParams) {
+    next('/');
+  } else {
+    next();
+  }
+});
+
+export default router;

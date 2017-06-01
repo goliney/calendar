@@ -10,17 +10,14 @@
       <!-- today -->
       <md-button class="md-raised md-dense today" @click.native="today()">
         Today
-        <md-tooltip md-direction="bottom">Go to today's date</md-tooltip>
       </md-button>
       <!-- prev -->
       <md-button class="md-icon-button md-raised md-dense" @click.native="prev()">
         <md-icon>chevron_left</md-icon>
-        <md-tooltip md-direction="bottom">Previous</md-tooltip>
       </md-button>
       <!-- next -->
       <md-button class="md-icon-button md-raised md-dense" @click.native="next()">
         <md-icon>chevron_right</md-icon>
-        <md-tooltip md-direction="bottom">Next</md-tooltip>
       </md-button>
     </nav>
 
@@ -80,6 +77,12 @@ export default {
       const { year, month, day } = this.$route.params;
       return new Date(year, month, day);
     },
+    currentWeek() {
+      return utils.getWeeksOfMonth(
+        this.$route.params.year,
+        this.$route.params.month,
+      )[this.$route.params.week];
+    },
   },
   methods: {
     today() {
@@ -96,10 +99,7 @@ export default {
           break;
         }
         case 'week': {
-          const weekStart = utils.getWeeksOfMonth(
-            this.$route.params.year,
-            this.$route.params.month,
-          )[this.$route.params.week][0];
+          const weekStart = this.currentWeek[0];
           const { year, month, week } = utils.parseDate(utils.getPrevDay(weekStart));
           this.$router.push({ name: 'week', params: { year, month, week } });
           break;
@@ -124,11 +124,8 @@ export default {
           break;
         }
         case 'week': {
-          const weekStart = utils.getWeeksOfMonth(
-            this.$route.params.year,
-            this.$route.params.month,
-          )[this.$route.params.week][6];
-          const { year, month, week } = utils.parseDate(utils.getNextDay(weekStart));
+          const weekEnd = this.currentWeek[6];
+          const { year, month, week } = utils.parseDate(utils.getNextDay(weekEnd));
           this.$router.push({ name: 'week', params: { year, month, week } });
           break;
         }
@@ -155,9 +152,12 @@ export default {
           break;
         }
         case 'week': {
+          params.day = this.currentWeek[0].getDate();
           break;
         }
         case 'month': {
+          params.day = 1;
+          params.week = 0;
           break;
         }
         case 'year': {

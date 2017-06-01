@@ -58,10 +58,15 @@ export function getWeekNumber(date) {
   return count;
 }
 
-export function parseDate(date) {
+export function parseDateSimple(date) {
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
+  return { year, month, day };
+}
+
+export function parseDate(date) {
+  const { year, month, day } = parseDateSimple(date);
   const week = getWeekNumber(date);
   const weekDayName = getWeekDayName(date.getDay());
   const monthName = getMonthName(month);

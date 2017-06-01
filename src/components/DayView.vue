@@ -20,6 +20,7 @@ import Day from './entities/Day';
 
 export default {
   name: 'dayView',
+  props: ['year', 'month', 'day'],
   components: {
     HourLabels,
     DayGrid,
@@ -29,6 +30,7 @@ export default {
     return {
     };
   },
+
 };
 </script>
 
