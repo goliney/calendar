@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="hour-label" v-for="label in hours">{{label}}</div>
+    <div class="hour-label" v-for="label in hours">{{label.title}}</div>
   </section>
 </template>
 

@@ -69,6 +69,7 @@ export function parseDate(date) {
   const { year, month, day } = parseDateSimple(date);
   const week = getWeekNumber(date);
   const weekDayName = getWeekDayName(date.getDay());
+  const weekDayNameShort = getShortWeekDayName(date.getDay());
   const monthName = getMonthName(month);
-  return { year, month, day, week, weekDayName, monthName };
+  return { year, month, day, week, weekDayName, weekDayNameShort, monthName };
 }

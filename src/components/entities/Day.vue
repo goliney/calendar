@@ -6,6 +6,12 @@
 
 export default {
   name: 'day',
+  props: ['date'],
+//  watch: {
+//    date(value) {
+//      console.log(this.date, value);
+//    },
+//  },
   data() {
     return {
     };

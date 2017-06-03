@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { parseDateSimple, getWeeksOfMonth } from '../utils';
+import { parseDateSimple, getWeeksOfMonth } from '@/utils';
 import YearView from '../components/YearView';
 import MonthView from '../components/MonthView';
 import WeekView from '../components/WeekView';

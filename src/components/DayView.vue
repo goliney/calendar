@@ -1,19 +1,21 @@
 <template>
   <div>
     <section class="static">
-      <span class="title">Monday, 5/29</span>
-      <day id="day"></day>
+      <span class="title">{{ title }}</span>
+      <day id="day" :date="date"></day>
     </section>
 
     <div class="top-border"></div>
     <main class="dynamic md-scrollbar">
       <hour-labels></hour-labels>
-      <day-grid id="day-grid"></day-grid>
+      <day-grid id="day-grid" :date="date"></day-grid>
     </main>
   </div>
 </template>
 
 <script>
+import { parseDate } from '@/utils';
+
 import HourLabels from './helpers/HourLabels';
 import DayGrid from './entities/DayGrid';
 import Day from './entities/Day';
@@ -25,6 +27,17 @@ export default {
     HourLabels,
     DayGrid,
     Day,
+  },
+  computed: {
+    date() {
+      return new Date(this.year, this.month, this.day);
+    },
+    parsedDay() {
+      return parseDate(this.date);
+    },
+    title() {
+      return `${this.parsedDay.weekDayName}, ${this.parsedDay.month + 1}/${this.parsedDay.day}`;
+    },
   },
   data() {
     return {

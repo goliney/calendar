@@ -1,61 +1,48 @@
 <template>
   <div>
     <section class="static">
-      <div class="day-wrap">
-        <span class="title">Mon, 5/29</span>
-        <day class="week-day"></day>
-      </div>
-      <div class="day-wrap">
-        <span class="title">Tue, 5/29</span>
-        <day class="week-day"></day>
-      </div>
-      <div class="day-wrap">
-        <span class="title">Wed, 5/29</span>
-        <day class="week-day"></day>
-      </div>
-      <div class="day-wrap">
-        <span class="title">Thu, 5/29</span>
-        <day class="week-day"></day>
-      </div>
-      <div class="day-wrap">
-        <span class="title">Fri, 5/29</span>
-        <day class="week-day"></day>
-      </div>
-      <div class="day-wrap">
-        <span class="title">Sat, 5/29</span>
-        <day class="week-day"></day>
-      </div>
-      <div class="day-wrap">
-        <span class="title">Sun, 5/29</span>
-        <day class="week-day"></day>
+      <div class="day-wrap" v-for="day in parsedWeekDays">
+        <span class="title">{{day.title}}</span>
+        <day class="week-day" :date="day.date"></day>
       </div>
     </section>
 
     <div class="top-border"></div>
     <main class="dynamic md-scrollbar">
       <hour-labels></hour-labels>
-      <day-grid class="day-grid"></day-grid>
-      <day-grid class="day-grid"></day-grid>
-      <day-grid class="day-grid"></day-grid>
-      <day-grid class="day-grid"></day-grid>
-      <day-grid class="day-grid"></day-grid>
-      <day-grid class="day-grid"></day-grid>
-      <day-grid class="day-grid"></day-grid>
+      <day-grid v-for="day in parsedWeekDays" class="day-grid" :key="day.title" :date="day.date"></day-grid>
     </main>
   </div>
 </template>
 
 <script>
+import { parseDate, getWeeksOfMonth } from '@/utils';
 import HourLabels from './helpers/HourLabels';
 import DayGrid from './entities/DayGrid';
 import Day from './entities/Day';
 
 export default {
   name: 'weekView',
+  props: ['year', 'month', 'week'],
   components: {
     HourLabels,
     DayGrid,
     Day,
+  },
+  computed: {
+    weekDays() {
+      return getWeeksOfMonth(this.year, this.month)[this.week];
+    },
+    parsedWeekDays() {
+      return this.weekDays.map((date) => {
+        const parsedDate = parseDate(date);
+        Object.assign(parsedDate, {
+          date,
+          title: `${parsedDate.weekDayNameShort}, ${parsedDate.month + 1}/${parsedDate.day}`,
+        });
+        return parsedDate;
+      });
+    },
   },
   data() {
     return {

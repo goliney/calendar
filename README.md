@@ -1,6 +1,6 @@
 # calendar
 
-> Simple calendar PWA built with Vue
+> Calendar built with Vue
 
 ## Build Setup
 

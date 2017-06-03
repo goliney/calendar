@@ -2,6 +2,7 @@
   <div id="app">
     <controls></controls>
     <router-view class="main-view"></router-view>
+    <event-edit></event-edit>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import 'material-design-icons/iconfont/material-icons.css';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 
 import Controls from './components/Controls';
+import EventEdit from './components/EventEdit';
 
 Vue.use(VueMaterial);
 
@@ -20,6 +22,7 @@ export default {
   name: 'app',
   components: {
     Controls,
+    EventEdit,
   },
 };
 </script>
