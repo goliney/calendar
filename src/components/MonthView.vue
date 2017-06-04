@@ -1,75 +1,36 @@
 <template>
   <div class="dynamic">
     <section class="week-days">
-      <span>Mon</span>
-      <span>Tue</span>
-      <span>Wed</span>
-      <span>Thu</span>
-      <span>Fri</span>
-      <span>Sat</span>
-      <span>Sun</span>
+      <span v-for="weekDay in weekDaysShort">{{ weekDay }}</span>
     </section>
 
     <div class="month">
-      <div class="week">
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-      </div>
-      <div class="week">
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-      </div>
-      <div class="week">
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-      </div>
-      <div class="week">
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-      </div>
-      <div class="week">
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
-        <day></day>
+      <div class="week" v-for="week in monthWeeks">
+        <day class="day" v-for="day in week" :date="day" :key="day" :month-mode="true"></day>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { WEEK_DAYS_SHORT } from '@/constants';
+import { getWeeksOfMonth } from '@/utils';
 import Day from './entities/Day';
 
 export default {
   name: 'monthView',
+  props: ['year', 'month'],
   components: {
     Day,
   },
+  computed: {
+    monthWeeks() {
+      return getWeeksOfMonth(this.year, this.month);
+    },
+  },
   data() {
     return {
+      weekDaysShort: WEEK_DAYS_SHORT,
     };
   },
 };
@@ -104,7 +65,9 @@ export default {
 
     .day {
       flex: 1;
-      border-right: 1px solid $separator_color;
+      border-bottom: none;
+      border-top: none;
+      border-left: none;
     }
   }
 }

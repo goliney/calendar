@@ -29,13 +29,17 @@
       <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('day') }" @click.native="changeMode('day')">day</md-button>
       <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('week') }" @click.native="changeMode('week')">week</md-button>
       <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('month') }" @click.native="changeMode('month')">month</md-button>
-      <md-button class="md-raised md-dense" :class="{ 'md-accent': isModeActive('year') }" @click.native="changeMode('year')">year</md-button>
     </md-button-toggle>
+
+    <md-button class="md-raised md-dense" @click.native="exportICS()">export</md-button>
   </md-toolbar>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import _ from 'lodash';
 import * as utils from '@/utils';
+import ics from '@/assets/ics';
 
 export default {
   name: 'controls',
@@ -44,6 +48,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      events: state => state.events,
+    }),
     title() {
       let result = '';
       const { year, month, week, day } = this.$route.params;
@@ -167,6 +174,27 @@ export default {
           break;
       }
       this.$router.push({ name: mode, params });
+    },
+    exportICS() {
+      const cal = ics();
+      _.values(this.events).forEach((year) => {
+        _.values(year).forEach((month) => {
+          _.values(month).forEach((day) => {
+            day.forEach((event) => {
+              let start = new Date(event.date.year, event.date.month, event.date.day).getTime();
+              let end = start;
+              if (event.wholeDay) {
+                end += 1000 * 60 * 60 * 24;
+              } else {
+                start += event.from;
+                end += event.to;
+              }
+              cal.addEvent(event.title, '', '', new Date(start), new Date(end));
+            });
+          });
+        });
+      });
+      cal.download('calendar');
     },
   },
 };

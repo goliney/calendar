@@ -8,7 +8,9 @@
 
 <script>
 import Vue from 'vue';
+import { mapState } from 'vuex';
 import VueMaterial from 'vue-material';
+import Push from 'push.js';
 import 'vue-material/dist/vue-material.css';
 import 'material-design-icons/iconfont/material-icons.css';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
@@ -24,6 +26,17 @@ export default {
     Controls,
     EventEdit,
   },
+  computed: {
+    ...mapState({
+      events: state => state.events,
+    }),
+  },
+  mounted() {
+    Push.Permission.request();
+    setInterval(() => {
+      this.$store.dispatch({ type: 'checkAlerts' });
+    }, 1000 * 60);
+  },
 };
 </script>
 
@@ -36,7 +49,7 @@ body {
   margin: 0;
   padding: 0;
   min-width: 1024px;
-  min-height: 640px;
+  min-height: 600px;
 }
 
 * {

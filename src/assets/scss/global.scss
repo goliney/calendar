@@ -1,10 +1,36 @@
 $separator_color: #ddd;
 $slot_bg: #eaeaea;
-$slot_height: 40px;
+$slot_height: 20px;
 $scrollbar_with_margin: 18px;
 
 .top-border {
   height: 1px;
   margin-right: $scrollbar_with_margin;
   background-color: $separator_color;
+}
+
+.event {
+  border: 1px solid #A9ABFE;
+  background-color: #E3E3FF;
+  font-size: 0.8em;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 2px;
+  color: #474747;
+  cursor: default;
+
+  &.overlap {
+    box-shadow: -1px -1px white, 1px 1px white;
+  }
+
+  .time {
+    display: block;
+    white-space: nowrap;
+    height: 14px;
+    line-height: 14px;
+  }
+
+  .title {
+    word-wrap: break-word;
+  }
 }

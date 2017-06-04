@@ -32,6 +32,8 @@ export function getSundayBeforeDate(date) {
 }
 
 export function getWeeksOfMonth(year, month) {
+  year = parseInt(year, 10);
+  month = parseInt(month, 10);
   const weeks = [];
   const startOfMonth = new Date(year, month, 1);
   const endOfMonth = new Date(year, month + 1, 0);

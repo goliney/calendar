@@ -28,17 +28,13 @@ section {
 }
 
 .hour-label {
-  flex-basis: $slot_height;
+  flex-basis: $slot_height * 2;
   flex-shrink: 0;
   border: 1px solid $separator_color;
-  border-bottom: none;
+  border-top: none;
   font-size: 0.8em;
   text-align: right;
   padding: 2px;
-
-  &:first-of-type {
-   border-top: none;
-  }
 
   &:last-of-type {
     border-bottom: 1px solid $separator_color;

@@ -2,7 +2,7 @@
   <div>
     <section class="static">
       <span class="title">{{ title }}</span>
-      <day id="day" :date="date"></day>
+      <day :date="date"></day>
     </section>
 
     <div class="top-border"></div>
@@ -58,11 +58,6 @@ export default {
     display: block;
     margin-bottom: 5px;
     text-align: center;
-  }
-
-  #day {
-    padding: 1px 0 0 2px;
-    border: 1px solid $separator_color;
   }
 }
 

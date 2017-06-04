@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { parseDateSimple, getWeeksOfMonth } from '@/utils';
-import YearView from '../components/YearView';
 import MonthView from '../components/MonthView';
 import WeekView from '../components/WeekView';
 import DayView from '../components/DayView';
@@ -10,12 +9,6 @@ Vue.use(Router);
 
 const router = new Router({
   routes: [
-    {
-      path: '/:year(\\d+)',
-      name: 'year',
-      component: YearView,
-      props: true,
-    },
     {
       path: '/:year(\\d{4})/:month(\\d{1,2})',
       name: 'month',

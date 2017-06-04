@@ -2,7 +2,7 @@
   <div>
     <section class="static">
       <div class="day-wrap" v-for="day in parsedWeekDays">
-        <span class="title">{{day.title}}</span>
+        <router-link class="title" :to="{ name: 'day', params: { year, month, day: day.day }}">{{day.title}}</router-link>
         <day class="week-day" :date="day.date"></day>
       </div>
     </section>
@@ -63,16 +63,19 @@ export default {
     display: block;
     margin-bottom: 5px;
     text-align: center;
+    color: rgba(0, 0, 0, .87);
+
+    &:hover {
+      color: rgba(0, 0, 0, .87);
+    }
   }
 
   .day-wrap {
-    flex: 1;
+    width: 14.285%;
     display: flex;
     flex-direction: column;
 
     .week-day {
-      padding: 1px 0 0 2px;
-      border: 1px solid $separator_color;
       flex: 1;
     }
 
@@ -87,10 +90,6 @@ main {
 
   .day-grid {
     flex: 1;
-
-    .hour {
-      border-left: none;
-    }
   }
 }
 </style>
