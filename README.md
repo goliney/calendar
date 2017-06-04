@@ -2,6 +2,9 @@
 
 > Calendar built with Vue
 
+## Demo
+http://goliney.github.io/calendar/
+
 ## Build Setup
 
 ``` bash
